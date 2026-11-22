@@ -1,0 +1,170 @@
+:root {
+  color-scheme: dark;
+  font:
+    15px/1.45 system-ui,
+    sans-serif;
+  color: #e3e8e6;
+  background: #181c1c;
+  accent-color: #a5d4bc;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+header,
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+header {
+  padding: 1rem 2vw;
+  border-bottom: 1px solid #485151;
+}
+header span {
+  color: #afc6ba;
+}
+h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+header button,
+.bar button {
+  margin-left: auto;
+}
+main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+}
+.work,
+aside {
+  padding: 1rem 2vw;
+}
+aside {
+  background: #202626;
+  border-left: 1px solid #465050;
+}
+aside label {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0.65rem 0;
+}
+h2 {
+  font-size: 1rem;
+  margin: 1rem 0 0.4rem;
+}
+select,
+input,
+button {
+  font: inherit;
+}
+select,
+button,
+input[type="number"] {
+  background: #293131;
+  color: inherit;
+  border: 1px solid #54605c;
+  border-radius: 4px;
+  padding: 0.35rem 0.55rem;
+}
+select {
+  max-width: 100%;
+}
+button {
+  cursor: pointer;
+}
+.bar {
+  margin-bottom: 0.7rem;
+}
+#stage {
+  height: clamp(320px, 58vh, 760px);
+  position: relative;
+  background: #303535;
+}
+canvas,
+#flat {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+canvas {
+  touch-action: none;
+}
+#flat {
+  display: flex;
+}
+#flat div {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: 10px;
+}
+#flat img {
+  image-rendering: pixelated;
+  display: block;
+  margin: auto;
+}
+#stage.split:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #85918b;
+  pointer-events: none;
+}
+[hidden] {
+  display: none !important;
+}
+#hint,
+#status,
+small {
+  color: #b8c5c0;
+}
+#details {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+article {
+  flex: 1;
+  min-width: 210px;
+  border-top: 1px solid #52605b;
+}
+article h2 {
+  overflow-wrap: anywhere;
+}
+.swatch {
+  display: inline-block;
+  width: 1.55rem;
+  height: 1.55rem;
+  border: 1px solid #abb2ae55;
+}
+a {
+  color: #b0dfc4;
+}
+pre {
+  white-space: pre-wrap;
+  font-size: 0.82rem;
+}
+@media (max-width: 760px) {
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  aside {
+    border: 0;
+  }
+  .work,
+  aside {
+    padding: 12px;
+  }
+  .bar {
+    gap: 0.5rem;
+  }
+  header {
+    padding: 10px;
+  }
+}

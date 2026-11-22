@@ -5,3 +5,6 @@ runs/
 __pycache__/
 .native/
 .cache/
+
+node_modules/
+dist/

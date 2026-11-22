@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Material viewer · Texture lab</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="importmap">
+      { "imports": { "three": "./vendor/three.module.js" } }
+    </script>
+  </head>
+  <body>
+    <header>
+      <span>Texture lab</span>
+      <h1>Material viewer</h1>
+      <button id="share">Copy view link</button>
+    </header>
+    <main>
+      <section class="work">
+        <div class="bar">
+          <label
+            >View
+            <select id="view">
+              <option>3D</option>
+              <option>Flat</option>
+            </select></label
+          ><label><input id="compare" type="checkbox" /> Compare</label
+          ><button id="reset">Reset camera</button>
+        </div>
+        <div id="stage">
+          <canvas id="canvas"></canvas>
+          <div id="flat" hidden></div>
+        </div>
+        <p id="hint"></p>
+        <p role="status" id="status">Loading experiments…</p>
+        <section id="details"></section>
+      </section>
+      <aside>
+        <h2>Variants</h2>
+        <div id="variants"></div>
+        <section id="spatial">
+          <h2>Scene</h2>
+          <div id="geometryControls"></div>
+          <h2>Sampling</h2>
+          <div id="sampling"></div>
+          <h2>Lighting</h2>
+          <div id="lights"></div>
+        </section>
+        <div id="flatControls" hidden></div>
+      </aside>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

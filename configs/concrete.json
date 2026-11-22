@@ -1,0 +1,1 @@
+{"seed":42,"source_size":256,"size":64,"colours":8,"methods":["median","octree","libimagequant","lab-kmeans"],"dithers":["nearest","bayer4","floyd"],"rarity_weights":[1,4]}

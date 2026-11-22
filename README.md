@@ -14,6 +14,28 @@ python src/smoke.py runs/trial-001 --count 128 --seed 42
 
 Open [the comparison gallery](reports/index.html) offline. The study refreshes the fixed gallery and results in `outputs/concrete/`. The batch smoke runner requires a new output directory and produces two PNGs per sample, JSON, CSV and an HTML report. Activation configures native headers, libraries, headless plotting and writable caches. The native lock targets Debian 13 amd64. The Python requirements lock includes transitive dependencies and package hashes.
 
+## Interactive material viewer
+
+Run `npm ci` with Node 22 or newer, then `npm run dev` from the checkout. Open `http://localhost:5173/`. Run `npm run build` again after changing results or viewer files, then refresh the browser. The build uses Python 3's standard library and copies the locked Three.js modules into `dist/`. Serve that directory over HTTP. All asset URLs are relative to the site, including under a repository subdirectory.
+
+Choose variant A, or enable **Compare** and choose B. The two panes share one camera, geometry and light rig. Drag to orbit, scroll to zoom, or select **First person**, click the viewport and use WASD and the mouse. Escape releases the pointer. Reset camera restores the geometry's starting view. **Copy view link** includes both variants, view and lighting settings, sampling controls, and camera position and target.
+
+One world unit is one metre. At UV tiling 1, a 64-texel-wide texture at 0.01 metres per texel repeats every 0.64 metres. Raising tiling to 2 halves that distance. **Flat** shows the original albedo at integer CSS-pixel zoom, independent of the material and lights. The experiment panel links the source PNG and full result record. Hover over palette chips for hex values.
+
+### Publishing results
+
+In repository **Settings → Pages → Build and deployment**, select **GitHub Actions**. Review branches build on pull requests. After merge, each push to `main` builds the static site and deploys it at `https://lopsidedlapwing.github.io/texture-lab/`. The workflow also supports manual dispatch from `main`.
+
+Run `python src/study.py configs/concrete.json` in the activated lab and commit the completed results under `outputs/`. The CLI writes to a directory named for the config stem and refreshes `outputs/manifest.json`. The Pages build regenerates this index from every nested `results.json`, so adding a study needs no viewer edits. Temporary smoke batches under `runs/` stay local.
+
+Each results file has a `config` object and a `rows` array. Each row has a unique `name`, RGB byte triplets in `palette`, and preferably explicit `algorithm` and `dither`. Legacy rows use method-weight-dither filenames. Albedo defaults to `<name>.png`, source to `source.png`, and an optional normal to `<name>-normal.png`. Override with row fields `albedo`, `source` and `normal` relative to the result directory. Use equal-sized, aligned albedo and tangent-space +Y normal PNGs. Keep experiment paths and variant names stable for shared links.
+
+### Colour and engine comparison
+
+Albedo is interpreted as sRGB; normal channels are linear data. The renderer computes lighting in linear space and encodes output as sRGB. Tone mapping, post-processing, shadows, screen-space dithering and multisample antialiasing are off. The material is fully rough and nonmetallic. Nearest filtering and disabled mipmaps expose texels by default. Optional nearest mip sampling selects a single level; linear mip sampling blends levels. Flat view is the unlit colour reference.
+
+Godot comparisons depend on renderer, texture import settings, normal orientation, UV density, light energy, exposure, environment lighting and tone mapper. Match those settings and disable texture compression when evaluating palette colours. Browser-generated mip levels, Godot import-time mip generation and GPU compression can produce different distant colours. The room is an inward-facing box, and first-person movement has no collision. The viewer requires WebGL 2 for 3D and a browser supporting ES modules and import maps. Flat zoom is measured in CSS pixels; display scaling can change the physical pixel ratio.
+
 The following brief records the project goals. The first checkpoint uses a procedural source. Reference screenshots were absent from the initial checkout.
 
 ## Objective

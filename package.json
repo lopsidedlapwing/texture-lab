@@ -1,0 +1,11 @@
+{
+  "name": "texture-lab-viewer",
+  "private": true,
+  "scripts": {
+    "build": "python3 viewer/build.py",
+    "dev": "npm run build && python3 -m http.server 5173 --directory dist"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  }
+}

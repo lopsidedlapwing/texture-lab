@@ -117,6 +117,9 @@ def study(cfg, folder, report):
                 rows.append(
                     {
                         "name": name,
+                        "algorithm": method,
+                        "dither": mode,
+                        "weight": weight,
                         "mean_delta_e": float(
                             np.linalg.norm(ref - lab, axis=-1).mean()
                         ),
@@ -153,7 +156,17 @@ def study(cfg, folder, report):
         )
     )
     with (folder / "metrics.csv").open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0])[:5], extrasaction="ignore")
+        writer = csv.DictWriter(
+            f,
+            fieldnames=[
+                "name",
+                "mean_delta_e",
+                "edge_mae",
+                "warm_fraction",
+                "lightness_range",
+            ],
+            extrasaction="ignore",
+        )
         writer.writeheader()
         writer.writerows(rows)
     names = ["input"] + [r["name"] for r in rows]
@@ -178,5 +191,13 @@ if __name__ == "__main__":
     parser.add_argument("config", type=Path)
     args = parser.parse_args()
     study(
-        json.loads(args.config.read_text()), Path("outputs/concrete"), Path("reports")
+        json.loads(args.config.read_text()),
+        Path("outputs") / args.config.stem,
+        Path("reports"),
     )
+    if __package__:
+        from .manifest import generate
+    else:
+        from manifest import generate
+
+    generate(Path("outputs"))
